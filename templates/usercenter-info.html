@@ -1,0 +1,71 @@
+{% extends 'usercenter-base.html' %}
+{% block title %}Personal Info - Expert Edge{% endblock %}
+{% block custom_bread %}
+     <section>
+        <div class="wp">
+            <ul  class="crumbs">
+                <li><a href="{% url 'index' %}">Home Page</a>></li>
+                <li><a href="{% url 'users:info' %}">Personal Center</a>></li>
+                <li>Personal Information</li>
+            </ul>
+        </div>
+    </section>
+{% endblock %}
+
+{% block right_form %}
+    <div class="right">
+		<div class="personal_des ">
+			<div class="head" style="border:1px solid #eaeaea;">
+				<h1>Personal Information</h1>
+			</div>
+			<div class="inforcon">
+				<div class="left" style="width:242px;">
+                    <iframe id='frameFile' name='frameFile' style='display: none;'></iframe>
+                    <form class="clearfix" id="jsAvatarForm" enctype="multipart/form-data" autocomplete="off" method="post" action="{% url 'users:image' %}" target='frameFile'>
+                        <label class="changearea" for="avatarUp">
+                            <span id="avatardiv" class="pic">
+                                <img width="100" height="100" class="js-img-show" id="avatarShow" src="{{ user.image.url }}"/>
+                            </span>
+                            <span class="fl upload-inp-box" style="margin-left:70px;">
+                                <span class="button btn-green btn-w100" id="jsAvatarBtn">Modify avatar</span>
+                                <input type="file" name="image" id="avatarUp" class="js-img-up"/>
+                            </span>
+                        </label>
+                        {% csrf_token %}
+                    </form>
+                    <div style="border-top:1px solid #eaeaea;margin-top:30px;">
+                        <a class="button btn-green btn-w100" id="jsUserResetPwd" style="margin:80px auto;width:100px;">Change password</a>
+                    </div>
+				</div>
+				<form class="perinform" id="jsEditUserForm" autocomplete="off">
+					<ul class="right">
+						<li>Nickname：
+                           <input type="text" name="nick_name" id="nick_name" value="{{ user.nick_name|default_if_none:'' }}" maxlength="10">
+                            <i class="error-tips"></i>
+                        </li>
+						<li>Birthday：
+                           <input type="text" id="birth_day" name="birthday" value="{{ user.birthday|default_if_none:''|date:'Y-m-d' }}" readonly="readonly"/>
+                            <i class="error-tips"></i>
+						</li>
+						<li>Gender：
+							<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio"  name="gender" value="male" {% if user.gender == 'male' %}checked="checked"{% endif %} >Male</label>
+							<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="gender" value="female" {% if user.gender == 'female' %}checked="checked"{% endif %}>Female</label>
+						</li>
+						<li class="p_infor_city">Address：
+                            <input type="text" name="address" id="address" placeholder="Please enter your address" value="{{ user.address }}" maxlength="10">
+						    <i class="error-tips"></i>
+                        </li>
+                        <li>Mobile Number：
+                            <input class="borderno" type="text" name="mobile" readonly="readonly" value="{{ user.mobile }}">
+                            <span class="changeemai_btn green changephone-color">[Modify]</span>
+                        </li>
+						<li class="button heibtn">
+							<input type="button" id="jsEditUserBtn" value="Save">
+						</li>
+					</ul>
+				{% csrf_token %}
+                </form>
+			</div>
+		</div>
+	</div>
+{% endblock %}

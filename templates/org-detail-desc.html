@@ -1,0 +1,14 @@
+{% extends "org_base.html" %}
+{% block title %}Institution Description{% endblock %}
+
+{% block right_form %}
+    <div class="right companycenter layout">
+        <div class="head">
+            <h1>Institution Description</h1>
+        </div>
+        <div class="des">
+            {% autoescape off %} {{ course_org.desc }} {% endautoescape %}
+        </div>
+    </div>
+
+{% endblock %}

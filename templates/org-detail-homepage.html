@@ -1,0 +1,75 @@
+{% extends "org_base.html" %}
+
+{% block title %}Institution Homepage{% endblock %}
+
+{% block right_form %}
+    <div class="right companycenter layout grouping" >
+		<div class="head">
+			<h1>All courses</h1>
+			<a class="green fr more" href="{% url 'org:course' course_org.id %}">See more  >  </a>
+		</div>
+		<div class="brief group_list">
+            {% for course in all_courses %}
+                <div class="module1_5 box">
+                    <a href="{% url 'course:detail' course.id %}"><img width="214" src="{{ MEDIA_URL }}{{ course.image }}"/></a>
+                    <div class="des">
+                        <a href="{% url 'course:detail' course.id %}"><h2>{{ course.name }}</h2></a>
+                        <span class="fl">Lesson Hours: <i class="key">{{ course.learn_times }}</i></span>
+                        <span class="fr">Number of Participants: {{ course.students }}</span>
+                    </div>
+                    <div class="bottom">
+                        <span class="fl">{{ course_org.name }}</span>
+                         <span class="star fr  notlogin
+                            " data-favid="13"  data-fav-type="4">
+                            0
+                        </span>
+                    </div>
+                </div>
+            {% endfor %}
+
+
+		</div>
+	</div>
+    <div class="right companycenter layout" >
+    <div class="head">
+        <h1>Institutional Teachers</h1>
+        <a class="green fr more" href="{% url 'org:teacher' course_org.id %}">See more  >  </a>
+    </div>
+
+    <div class="diarys">
+        {% for teacher in all_teacher %}
+            <div class="module5 share company-diary-box" style="padding:10px 0;">
+            <div class="left">
+                <img class="pic" src="{{ MEDIA_URL }}{{ teacher.image }}"/>
+                <p>Nickname：{{ teacher.name }}</p>
+            </div>
+            <div class="right">
+                <div class="top">
+                    <div class="fl">
+                        <a href=""><h1>{{ teacher.work_position }}</h1></a>
+                        <span>Works year: {{ teacher.work_years }}</span>
+                    </div>
+                </div>
+                <div class="middle" style="border-bottom:0;">{{ teacher.points }}</div>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+
+
+
+</div>
+<div class="right companycenter layout" >
+    <div class="head">
+        <h1>Institution Introduction</h1>
+        <a class="green fr more" href="{% url 'org:desc' course_org.id %}">See more  >  </a>
+    </div>
+    <div class="cont">
+     {% autoescape off %}   {{ course_org.desc }} {% endautoescape %}
+    </div>
+</div>
+{% endblock %}
+{% block title %}Institution Homepage{% endblock %}
+
+
